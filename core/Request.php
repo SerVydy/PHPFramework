@@ -41,4 +41,20 @@
         {
             return isset($_POST[$name]) ? $_POST[$name] : $default;
         }
+
+        public function getPath():string
+        {
+            return $this->removeQueryString();    
+        }
+
+        public function removeQueryString():string
+        {
+            if($this->uri) 
+            {
+                $params = explode('?', $this->uri);
+                return trim($params[0],'/');
+            }
+            
+            return $this->uri;
+        }
     }
