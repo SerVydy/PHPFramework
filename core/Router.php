@@ -28,6 +28,7 @@
                 'callback' => $callback,
                 'middleware' => null,
                 'method' => $method,
+                'needToken' => true,
             ];
 
             return $this;
@@ -50,6 +51,38 @@
 
         public function dispatch():mixed
         {
-            return "TEST";
+            $path = $this->request->getPath();
+            $route = $this->mathRoute($path);
+            if (!$route) {
+                $this->response->setResponseCode(404);
+                echo "404 Not Found";
+                die();
+            }
+            if (is_array($route['callback'])) {
+                $route['callback'][0 ] = new $route['callback'][0];
+            }
+
+            return call_user_func($route['callback']);
+        }
+
+        protected function mathRoute($path):mixed
+        {
+            foreach($this->routes as $route)
+            {
+                if (
+                    preg_match("#^{$route['path']}$#", "/{$path}", $matches)
+                    &&
+                    in_array($this->request->getMethod(), $route['method'])
+                )
+                {
+                    foreach ($matches as $k => $v)
+                    {
+                        if(is_string($k))
+                        $this->route_params[$k] = $v;
+                    }
+                    return $route;
+                }
+            }
+            return false;
         }
     }
