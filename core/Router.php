@@ -54,9 +54,7 @@
             $path = $this->request->getPath();
             $route = $this->mathRoute($path);
             if (!$route) {
-                $this->response->setResponseCode(404);
-                echo "404 Not Found";
-                die();
+                abort('Page not found');
             }
             if (is_array($route['callback'])) {
                 $route['callback'][0 ] = new $route['callback'][0];

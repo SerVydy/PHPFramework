@@ -5,9 +5,14 @@
 
     class HomeController
     {
+        public function index()
+        {
+            return view('test',['name' => 'John Doe'],);
+        }
+
         public function test()
         {
-            return 'test';
+            return app()->view->render('test',['name' => 'John Doe test']);
         }
 
         public function test2()
