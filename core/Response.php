@@ -1,16 +1,18 @@
 <?php
 
-    namespace PHPFramework;
+namespace PHPFramework;
 
-    class Response
+class Response
+{
+
+    public function setResponseCode(int $code): void
     {
-        public function setResponseCode(int $code): void
-        {
-            http_response_code($code);
-        }
-
-//        public function redirect()
-//        {
-//
-//        }
+        http_response_code($code);
     }
+
+    /*public function redirect()
+    {
+
+    }*/
+
+}

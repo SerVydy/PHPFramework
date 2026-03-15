@@ -1,23 +1,20 @@
 <?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
+class HomeController extends BaseController
+{
 
-    class HomeController
+    public function index()
     {
-        public function index()
-        {
-            return view('test',['name' => 'John Doe'],);
-        }
-
-        public function test()
-        {
-            return app()->view->render('test',['name' => 'John Doe test']);
-        }
-
-        public function test2()
-        {
-            return 'test2';
-        }
-        
+        return view('home', [
+            'title' => 'Home page',
+        ]);
     }
+
+    public function contact()
+    {
+        return 'Contact page';
+    }
+
+}
